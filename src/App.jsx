@@ -1,51 +1,75 @@
-import { useState } from 'react'
-import foto from "./assets/Foto.jpg"
+import { useState } from "react";
+import Header from './components/header'
+import Formulario from './components/FormularioDatos'
+import Footer from './components/footer'
+import Academico from "./components/FormularioAcademico";
+import Experiencia from "./components/FormularioExperiencia";
+import VistaPrevia from "./components/VistaPrevia";
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const[paso, setPaso] = useState(1);
+
+  const [persona, setPersona] = useState({
+    foto: null,
+    nombre: "",
+    ciudad: "",
+    edad: "",
+    programa: "",
+    correo:"",
+    ficha:"",
+    jornada:"Mañana",
+
+    //Informacion de estudios
+    nivel:"",
+    titulo:"",
+    cursos: [],
+    institución:"",
+    anio:"",
+
+
+    //Experiencia laborales
+    experiencias:[]
+  })
 
   return (
     <>
-    <div>
-      <h3>JUAN SEBASTIAN BARRAGAN SERRATO</h3>
-      <h4>ANALISIS Y DESARROLLO DE SOFTWARE</h4>
-      <h1>HOJA DE VIDA APRENDIZ</h1>
-      <img src={foto} alt="Foto de perfil" width="250"></img>
-      <p>Nombre: Juan Sebastian Barragan Serrato</p>
-      <p>Edad: 18 años</p>
-      <p>Ciudad: Bogotá D.C</p>
-      <p>Correo electronico: sebastianbarragan20204@gmail.com</p>
-      <p>Programa de formación: Análisis y desarrollo de software</p>
-    </div>
-    <br></br>
+    <Header/>
+    {
+      paso == 1 && <Formulario
+        persona = {persona}
+        setPersona = {setPersona}
+        siguiente = {() => setPaso(2)}
+        />
+    }
 
-    <div>
-      <h1>CURSOS REALIZADOS</h1>
-      <p>
-        Bilingüismo: Nivel 1-2 <br></br>
-        Técnico: Programación de software
-      </p>
-    </div>
+    {
+      paso == 2 && <Academico
+      persona={persona}
+      setPersona={setPersona}
+      anterior = {() => setPaso(1)}
+      siguiente={() => setPaso(3)}
+      />
+    }
 
-    <div>
-      <h1>OBEJTIVO PROFESIONAL</h1>
-      <p>¿Por qué desea aprender React?
-        <br></br>
-        Para mejorar mis habilidades como desarollador.
-      </p>
-      <br></br>
-      <p>¿En qué tipo de proyectos le gustaría utilizarlo?</p>
-      <p>
-        En el sector público, marketing y finanzas.
-      </p>
-    </div>
-    <br></br>
-    <div>
-      <button>Conoce más sobre mí</button>
-    </div>
+    {
+      paso == 3 && <Experiencia
+      persona={persona}
+      setPersona={setPersona}
+      anterior={() => setPaso(2)}
+      siguiente={() => setPaso(4)}
+      />
+    }
+
+    {
+      paso == 4 && <VistaPrevia
+      persona={persona}
+      anterior={() => setPaso(3)}
+      />
+    }
+    <Footer/>
     </>
   )
 }
-
 export default App
