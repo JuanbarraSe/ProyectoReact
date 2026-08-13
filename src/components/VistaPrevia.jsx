@@ -2,6 +2,11 @@ function VistaPrevia({persona, anterior}){
     return (
         <div className="formulario">
             <h2>Vista Previa</h2>
+            {persona.foto && (
+                <div className="foto-preview">
+                    <img src={persona.foto} alt="foto de perfil"/>
+                </div>
+            )}
             <h3>Datos Personales</h3>
 
             <p>Nombre: {persona.nombre}</p>
@@ -22,7 +27,7 @@ function VistaPrevia({persona, anterior}){
             <div className="detalle">
                 <span>Cursos</span>
                 <div>
-                    {persona.cursos.map((curso,indice) =>(
+                    {persona.cursos.map((curso,indice) => (
                         <p key={indice}>
                             {curso}
                         </p>
@@ -31,11 +36,14 @@ function VistaPrevia({persona, anterior}){
             </div>
 
             <h3>Experiencia Laboral</h3>
-
-            <p>Empresa:{persona.empresa}</p>
-            <p>Tiempo de Experiencia: {persona.tiempo}</p>
-            <p>Cargo:{persona.cargo}</p>
-            <p>Funciones Desempeñadas{persona.funciones}</p>
+            {persona.experiencias.map((experiencias, indice) => (
+                <div className="detalle" key={indice}>
+                    <p>Empresa:{experiencias.empresa}</p>
+                    <p>Tiempo de Experiencia:{experiencias.tiempo}</p>
+                    <p>Cargo:{experiencias.cargo}</p>
+                    <p>Funciones:{experiencias.funciones}</p>
+                </div>
+            ))}
 
             <button type="button" onClick={anterior}>
                 Anterior

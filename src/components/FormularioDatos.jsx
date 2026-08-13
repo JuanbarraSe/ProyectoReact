@@ -1,4 +1,3 @@
-import { useState } from "react";
 function Formulario({persona, setPersona, siguiente}){
 
     const continuar = (e) => {
@@ -18,7 +17,12 @@ function Formulario({persona, setPersona, siguiente}){
                 <div className="Grupo">
                     <label>Fotografia</label>
                     <input type="file" accept="image/*"
-                    onChange={(e) => setPersona({...persona,foto:e.target.file[0]})}
+                    onChange={(e) => {
+                        const archivo = e.target.files[0]
+                        if(archivo){
+                            setPersona({...persona,foto:URL.createObjectURL(archivo)})
+                        }
+                    }}
                     />
                 </div>
 
