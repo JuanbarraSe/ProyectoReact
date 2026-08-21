@@ -60,8 +60,6 @@ function Formulario({persona, setPersona, siguiente}){
                     <input type="file" accept="image/*"
                     onChange={(e) => {
                         const archivo = e.target.files[0]
-
-                        
                         if(archivo){
                             setPersona({...persona,foto:URL.createObjectURL(archivo)})
                         }
